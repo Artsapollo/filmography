@@ -10,9 +10,9 @@ public interface FilmService {
 
     void addFilm(Film film);
 
-    void deleteFilm(Film film);
-
     void editFilm(Film film);
+
+    void deleteFilm(int id);
 
     Film getFilmById(int id);
 }

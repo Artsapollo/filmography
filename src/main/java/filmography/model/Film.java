@@ -2,10 +2,13 @@ package filmography.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 
 @Entity
 public class Film {
     @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @Column(name = "title")
     private String title;
@@ -18,13 +21,6 @@ public class Film {
 
     public Film() {
 
-    }
-
-    public Film(String title, int year, String genre, boolean watched) {
-        this.title = title;
-        this.year = year;
-        this.genre = genre;
-        this.watched = watched;
     }
 
     public int getId() {

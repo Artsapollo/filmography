@@ -5,12 +5,14 @@ import filmography.service.UserService;
 import filmography.service.impl.UserServiceImpl;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+@WebServlet("/mainPageServlet")
 public class MainPageServlet extends HttpServlet {
 
     UserService userService = new UserServiceImpl();
@@ -20,15 +22,15 @@ public class MainPageServlet extends HttpServlet {
         req.getRequestDispatcher("/WEB-INF/views/main.jsp").forward(req, resp);
     }
 
-    @Override //Проверяет существует ли такой аккаунт
+    @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String login = req.getParameter("user_name");
         String password = req.getParameter("password");
         User user = new User(login, password);
 
-        if (userService.checkIfExist(user)) {//если да то открывает страницу с фильмами
-            req.getRequestDispatcher("/WEB-INF/views/films.jsp").forward(req, resp);
-        }else{//Если нет то предлагает зарегистрироваться
+        if (userService.checkIfExist(user)) {
+            resp.sendRedirect("/filmServlet");
+        } else {
             resp.setContentType("text/html");
             PrintWriter out = resp.getWriter();
             out.println("<html><head><title>Oops</title></head><body>");

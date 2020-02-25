@@ -5,11 +5,13 @@ import filmography.service.FilmService;
 import filmography.service.impl.FilmServiceImpl;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+@WebServlet("/addFilmServlet")
 public class AddFilmServlet extends HttpServlet {
 
     FilmService filmService = new FilmServiceImpl();
@@ -25,7 +27,12 @@ public class AddFilmServlet extends HttpServlet {
         int year = Integer.valueOf(req.getParameter("year"));
         String genre = req.getParameter("genre");
         boolean watched = Boolean.TRUE == req.getAttribute("watched");
-        Film film = new Film(title, year, genre, watched);
+        Film film = new Film();
+        film.setTitle(title);
+        film.setYear(year);
+        film.setGenre(genre);
+        film.setWatched(watched);
         filmService.addFilm(film);
+        resp.sendRedirect("/filmServlet");
     }
 }

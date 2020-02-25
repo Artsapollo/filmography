@@ -1,22 +1,45 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Artem
-  Date: 15.02.2020
-  Time: 15:27
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%--<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>--%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <html>
 <head>
-    <title>Films page</title>
+    <title>Films</title>
 </head>
 <body>
-    <h1>Films catalog</h1>
+<h1>Films catalog</h1>
+<table>
+    <tr>
+        <th>id</th>
+        <th>title</th>
+        <th>year</th>
+        <th>genre</th>
+        <th>watched</th>
+        <th>action</th>
+    </tr>
+    <c:forEach var="films" items="${films}">
+        <tr>
+            <td>${films.id}</td>
+            <td>${films.title}</td>
+            <td>${films.year}</td>
+            <td>${films.genre}</td>
+            <td>${films.watched}</td>
+            <td>
+                <a href="<c:url value="/edit?id=${films.id}"/>">Edit</a>
+                <form action="/deletingServlet?id=${films.id}" method="post">
+                    <input type="submit" name="button1" value="delete"/>
+                </form>
+
+            </td>
+        </tr>
+    </c:forEach>
+</table>
+
 <div>
     <div>
-        <button onclick="location.href='/add'">Add film</button>
+        <button onclick="location.href='/add'">Add new film</button>
+    </div>
+    <div>
+        <button onclick="location.href='/main'">Main page</button>
     </div>
 </div>
 

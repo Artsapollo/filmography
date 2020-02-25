@@ -9,7 +9,7 @@ public interface FilmDAO {
 
     void addFilm(Film film);
 
-    void deleteFilm(Film film);
+    void deleteFilm(int id);
 
     void editFilm(Film film);
 

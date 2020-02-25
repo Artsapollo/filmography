@@ -9,8 +9,8 @@ import java.util.Map;
 
 public class UserDAOImpl implements UserDAO {
     private static String url = "jdbc:mysql://localhost:3306/filmography?serverTimezone=UTC";
-    private static String login = "root";
-    private static String password = "root";
+    private static String login = "";
+    private static String password = "";
     private static Connection connection;
     private static final String insert = "INSERT INTO user (`user_name`, `password`) VALUES (?,?)";
 

@@ -5,11 +5,13 @@ import filmography.service.UserService;
 import filmography.service.impl.UserServiceImpl;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+@WebServlet("/signUpServlet")
 public class SignUpServlet extends HttpServlet {
     UserService userService = new UserServiceImpl();
 
@@ -24,7 +26,7 @@ public class SignUpServlet extends HttpServlet {
         String password = req.getParameter("password");
         User user = new User(username, password);
         if (userService.signUp(user)) {
-            req.getRequestDispatcher("/WEB-INF/views/main.jsp").forward(req, resp);
+            resp.sendRedirect("/mainPageServlet");
         }
     }
 }

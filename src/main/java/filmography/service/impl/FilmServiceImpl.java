@@ -22,13 +22,13 @@ public class FilmServiceImpl implements FilmService {
     }
 
     @Override
-    public void deleteFilm(Film film) {
-        filmDAO.deleteFilm(film);
+    public void editFilm(Film film) {
+        filmDAO.editFilm(film);
     }
 
     @Override
-    public void editFilm(Film film) {
-        filmDAO.editFilm(film);
+    public void deleteFilm(int id) {
+        filmDAO.deleteFilm(id);
     }
 
     @Override

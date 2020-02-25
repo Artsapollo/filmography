@@ -10,14 +10,9 @@ import java.util.List;
 public class FilmDAOImpl implements FilmDAO {
 
     private static String url = "jdbc:mysql://localhost:3306/filmography?serverTimezone=UTC";
-    private static String login = "root";
-    private static String password = "root";
+    private static String login = "";
+    private static String password = "";
     private static Connection connection;
-    private static final String insert = "INSERT INTO films (`title`, `year`, `genre`, watched) VALUES (?,?,?,?)";
-    private static final String select = "SELECT * FROM films";
-    private static final String remove = "DELETE FROM films WHERE title=?";
-    private static final String getById = "SELECT * FROM films WHERE id=?";
-    private static final String update = "UPDATE films SET genre=? WHERE title=?";
 
     static {
 
@@ -37,16 +32,18 @@ public class FilmDAOImpl implements FilmDAO {
     public List<Film> getAll() {
         List<Film> result = new ArrayList<>();
         Statement statement = null;
-        String query = select;
+        String query = "SELECT * FROM films";
         try {
             statement = connection.createStatement();
             ResultSet rs = statement.executeQuery(query);
             while (rs.next()) {
+                int id = rs.getInt("id");
                 String title = rs.getString("title");
                 int year = rs.getInt("year");
                 String genre = rs.getString("genre");
                 boolean watched = rs.getBoolean("watched");
                 Film film = new Film();
+                film.setId(id);
                 film.setTitle(title);
                 film.setYear(year);
                 film.setGenre(genre);
@@ -71,7 +68,7 @@ public class FilmDAOImpl implements FilmDAO {
     public void addFilm(Film film) {
         PreparedStatement statement = null;
         try {
-            statement = connection.prepareStatement(insert);
+            statement = connection.prepareStatement("INSERT INTO films (`title`, `year`, `genre`, watched) VALUES (?,?,?,?)");
             statement.setString(1, film.getTitle());
             statement.setInt(2, film.getYear());
             statement.setString(3, film.getGenre());
@@ -91,32 +88,15 @@ public class FilmDAOImpl implements FilmDAO {
     }
 
     @Override
-    public void deleteFilm(Film film) {
-        PreparedStatement statement = null;
-        try {
-            statement = connection.prepareStatement(remove);
-            statement.setString(1, film.getTitle());
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            System.out.println("SQL exception");
-        } finally {
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException e) {
-                    System.out.println("SQL exception when closing connection");
-                }
-            }
-        }
-    }
-
-    @Override
     public void editFilm(Film film) {
         PreparedStatement statement = null;
         try {
-            statement = connection.prepareStatement(update);
-            statement.setString(1, film.getGenre());
-            statement.setString(2, film.getTitle());
+            statement = connection.prepareStatement("UPDATE films SET title = ?, year = ?, genre = ?, watched = ? WHERE id = ?");
+            statement.setString(1, film.getTitle());
+            statement.setInt(2, film.getYear());
+            statement.setString(3, film.getGenre());
+            statement.setBoolean(4, film.isWatched());
+            statement.setInt(5, film.getId());
             statement.execute();
         } catch (SQLException e) {
             System.out.println("SQL exception");
@@ -132,17 +112,40 @@ public class FilmDAOImpl implements FilmDAO {
     }
 
     @Override
+    public void deleteFilm(int id) {
+        PreparedStatement statement = null;
+        try {
+            statement = connection.prepareStatement("DELETE FROM films WHERE id = ?");
+            statement.setInt(1, id);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("SQL exception");
+        } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException e) {
+                    System.out.println("SQL exception when closing connection");
+                }
+            }
+        }
+    }
+
+
+    @Override
     public Film getFilmById(int id) {
-        Statement statement = null;
+        PreparedStatement statement = null;
         Film film = new Film();
         try {
-            statement = connection.createStatement();
-            ResultSet rs = statement.executeQuery(getById);
+            statement = connection.prepareStatement("SELECT * FROM films WHERE id = ?");
+            statement.setInt(1, id);
+            ResultSet rs = statement.executeQuery();
             while (rs.next()) {
                 String title = rs.getString("title");
                 int year = rs.getInt("year");
                 String genre = rs.getString("genre");
                 boolean watched = rs.getBoolean("watched");
+                film.setId(id);
                 film.setTitle(title);
                 film.setYear(year);
                 film.setGenre(genre);
