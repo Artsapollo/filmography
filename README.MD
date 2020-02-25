@@ -1,0 +1,1 @@
+Simple CRUD application using Maven, Tomcat, Servlets, JSP and storing information in MySql DataBase
