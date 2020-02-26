@@ -1,7 +1,7 @@
 package filmography.servlets;
 
-import filmography.service.FilmService;
-import filmography.service.impl.FilmServiceImpl;
+import filmography.dao.FilmDAO;
+import filmography.dao.jdbc.FilmDAOImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,12 +12,13 @@ import java.io.IOException;
 
 @WebServlet("/deletingServlet")
 public class DeletingServlet extends HttpServlet {
-    FilmService filmService = new FilmServiceImpl();
+    FilmDAO filmDAO = new FilmDAOImpl();
+
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int id = Integer.valueOf(req.getParameter("id"));
-        filmService.deleteFilm(id);
+        filmDAO.deleteFilm(id);
         resp.sendRedirect("/filmServlet");
     }
 }
