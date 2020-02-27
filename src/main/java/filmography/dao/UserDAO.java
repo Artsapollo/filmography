@@ -7,5 +7,5 @@ import java.util.Map;
 public interface UserDAO {
     boolean signUp(User user);
 
-    Map<String, String> checkIfExist(User user);
+    boolean checkIfExist(User user);
 }

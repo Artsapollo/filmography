@@ -1,8 +1,8 @@
 package filmography.servlets;
 
+import filmography.dao.UserDAO;
+import filmography.dao.jdbc.UserDAOImpl;
 import filmography.model.User;
-import filmography.service.UserService;
-import filmography.service.impl.UserServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,7 +15,8 @@ import java.io.PrintWriter;
 @WebServlet("/mainPageServlet")
 public class MainPageServlet extends HttpServlet {
 
-    UserService userService = new UserServiceImpl();
+    UserDAO userDAO = new UserDAOImpl();
+
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -28,7 +29,7 @@ public class MainPageServlet extends HttpServlet {
         String password = req.getParameter("password");
         User user = new User(login, password);
 
-        if (userService.checkIfExist(user)) {
+        if (userDAO.checkIfExist(user)) {
             resp.sendRedirect("/filmServlet");
         } else {
             resp.setContentType("text/html");

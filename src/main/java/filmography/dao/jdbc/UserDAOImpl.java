@@ -51,7 +51,7 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public Map<String, String> checkIfExist(User user) {
+    public boolean checkIfExist(User user) {
         PreparedStatement statement = null;
         Map<String, String> info = new HashMap<>();
         try {
@@ -75,6 +75,11 @@ public class UserDAOImpl implements UserDAO {
                 }
             }
         }
-        return info;
+
+        if (!info.isEmpty()) {
+            return true;
+        }
+
+        return false;
     }
 }
