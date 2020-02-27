@@ -12,20 +12,15 @@
     <h1>Welcome to the Filmography</h1>
 </div>
 
-
+<div>${errorMsg}</div>
 <form action="/main" method="post">
     <div class="container">
-
-        <div>
-            <p>Log in</p>
-        </div>
 
         <label for="user_name"><b>Username</b></label>
         <input type="text" placeholder="Login" name="user_name" required>
 
         <label for="password"><b>Password</b></label>
         <input type="password" placeholder="Password" name="password" required>
-
 
         <div>
             <div>

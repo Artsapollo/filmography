@@ -6,11 +6,12 @@ import filmography.model.User;
 import java.sql.*;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class UserDAOImpl implements UserDAO {
     private static String url = "jdbc:mysql://localhost:3306/filmography?serverTimezone=UTC";
-    private static String login = "";
-    private static String password = "";
+    private static String login = "root";
+    private static String password = "root";
     private static Connection connection;
     private static final String insert = "INSERT INTO user (`user_name`, `password`) VALUES (?,?)";
 
@@ -51,12 +52,13 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public boolean checkIfExist(User user) {
+    public Map<String, String> checkIfExist(User user) {
         PreparedStatement statement = null;
         Map<String, String> info = new HashMap<>();
         try {
             statement = connection.prepareStatement("SELECT * FROM user WHERE user_name = ? and password = ?");
             statement.setString(1, user.getUserName());
+            statement.setString(2, user.getPassword());
             statement.setString(2, user.getPassword());
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
@@ -75,11 +77,6 @@ public class UserDAOImpl implements UserDAO {
                 }
             }
         }
-
-        if (!info.isEmpty()) {
-            return true;
-        }
-
-        return false;
+        return info;
     }
 }

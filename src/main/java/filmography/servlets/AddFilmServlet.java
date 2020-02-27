@@ -1,8 +1,8 @@
 package filmography.servlets;
 
-import filmography.dao.FilmDAO;
-import filmography.dao.jdbc.FilmDAOImpl;
 import filmography.model.Film;
+import filmography.service.FilmService;
+import filmography.service.impl.FilmServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,8 +13,7 @@ import java.io.IOException;
 
 @WebServlet("/addFilmServlet")
 public class AddFilmServlet extends HttpServlet {
-
-    FilmDAO filmDAO = new FilmDAOImpl();
+    FilmService filmService = new FilmServiceImpl();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -32,7 +31,7 @@ public class AddFilmServlet extends HttpServlet {
         film.setYear(year);
         film.setGenre(genre);
         film.setWatched(watched);
-        filmDAO.addFilm(film);
+        filmService.addFilm(film);
         resp.sendRedirect("/filmServlet");
     }
 }

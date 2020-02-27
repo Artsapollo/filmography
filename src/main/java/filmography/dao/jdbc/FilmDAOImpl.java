@@ -10,8 +10,8 @@ import java.util.List;
 public class FilmDAOImpl implements FilmDAO {
 
     private static String url = "jdbc:mysql://localhost:3306/filmography?serverTimezone=UTC";
-    private static String login = "";
-    private static String password = "";
+    private static String login = "root";
+    private static String password = "root";
     private static Connection connection;
 
     static {
@@ -31,11 +31,11 @@ public class FilmDAOImpl implements FilmDAO {
     @Override
     public List<Film> getAll() {
         List<Film> result = new ArrayList<>();
-        Statement statement = null;
+        PreparedStatement statement = null;
         String query = "SELECT * FROM films";
         try {
-            statement = connection.createStatement();
-            ResultSet rs = statement.executeQuery(query);
+            statement = connection.prepareStatement(query);
+            ResultSet rs = statement.executeQuery();
             while (rs.next()) {
                 int id = rs.getInt("id");
                 String title = rs.getString("title");
