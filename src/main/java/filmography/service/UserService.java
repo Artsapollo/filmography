@@ -5,6 +5,8 @@ import filmography.model.User;
 public interface UserService {
     boolean signUp(User user);
 
-    boolean checkIfExist(User user);
+    User checkIfExist(String login, String password);
+
+    User getByToken(String value);
 
 }

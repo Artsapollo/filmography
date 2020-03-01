@@ -24,7 +24,10 @@ public class SignUpServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String username = req.getParameter("user_name");
         String password = req.getParameter("password");
-        User user = new User(username, password);
+        User user = new User();
+        user.setUserName(username);
+        user.setPassword(password);
+
         if (userService.signUp(user)) {
             resp.sendRedirect("/mainPageServlet");
         }

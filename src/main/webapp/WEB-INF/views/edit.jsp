@@ -6,7 +6,7 @@
     <title>Edit page</title>
 </head>
 <body>
-<c:url value="/edit" var="var"/>
+<c:url value="/servlet/edit" var="var"/>
 <form action="${var}" method="POST">
     <input type="hidden" name="id" value="${film.id}">
 

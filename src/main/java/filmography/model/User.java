@@ -16,13 +16,8 @@ public class User {
     @NotNull(message = "Please insert the password")
     @Column(name = "password")
     private String password;
-    @Transient
+    @Column(name = "token")
     private String token;
-
-    public User(String userName, String password) {
-        this.userName = userName;
-        this.password = password;
-    }
 
     public String getUserName() {
         return userName;

@@ -27,7 +27,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>films</servlet-name>
-        <url-pattern>/films</url-pattern>
+        <url-pattern>/servlet/films</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -36,7 +36,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>add</servlet-name>
-        <url-pattern>/add</url-pattern>
+        <url-pattern>/servlet/add</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -45,7 +45,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>edit</servlet-name>
-        <url-pattern>/edit</url-pattern>
+        <url-pattern>/servlet/edit</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -54,7 +54,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>delete</servlet-name>
-        <url-pattern>/delete</url-pattern>
+        <url-pattern>/servlet/delete</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -65,4 +65,14 @@
         <servlet-name>index</servlet-name>
         <url-pattern>/index</url-pattern>
     </servlet-mapping>
+
+    <filter>
+        <filter-name>auth-filter</filter-name>
+        <filter-class>filmography.filter.AuthenticationFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>auth-filter</filter-name>
+        <url-pattern>/servlet/*</url-pattern>
+    </filter-mapping>
+
 </web-app>

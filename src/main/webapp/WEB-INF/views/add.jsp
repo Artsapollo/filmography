@@ -7,7 +7,7 @@
     <h1>Add new film</h1>
 </div>
 <body>
-<form action = "/add" method="post">
+<form action = "/servlet/add" method="post">
     <input required type="text" name="title" placeholder="Title">
     <input required type="text" name="year" placeholder="Year">
     <input required type="text" name="genre" placeholder="Genre">

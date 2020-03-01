@@ -5,7 +5,6 @@ import filmography.dao.jdbc.UserDAOImpl;
 import filmography.model.User;
 import filmography.service.UserService;
 
-import java.util.Map;
 import java.util.UUID;
 
 public class UserServiceImpl implements UserService {
@@ -23,11 +22,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean checkIfExist(User user) {
-        Map<String, String> loginInfo = userDAO.checkIfExist(user);
-        if (!loginInfo.isEmpty()) {
-            return true;
+    public User checkIfExist(String login, String password) {
+        User user = userDAO.checkIfExist(login, password);
+        if (user.getUserName() != null) {
+            return user;
+        } else {
+            throw new RuntimeException("User not found");
         }
-        return false;
+    }
+
+    @Override
+    public User getByToken(String value) {
+        return userDAO.getByToken(value);
     }
 }

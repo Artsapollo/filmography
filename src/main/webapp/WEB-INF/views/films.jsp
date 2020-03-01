@@ -36,7 +36,7 @@
 
 <div>
     <div>
-        <button onclick="location.href='/add'">Add new film</button>
+        <button onclick="location.href='/servlet/add'">Add new film</button>
     </div>
     <div>
         <button onclick="location.href='/main'">Main page</button>
